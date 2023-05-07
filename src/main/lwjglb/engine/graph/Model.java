@@ -1,21 +1,21 @@
 package main.lwjglb.engine.graph;
 
-import main.lwjglb.engine.scene.Entity; // not impl
+import main.lwjglb.engine.scene.Entity; 
 import java.util.*;
 
 public class Model {
     private final String id;
     private List<Entity> entitiesList;
-    private List<Mesh> meshList;
+    private List<Material> materialList;
 
-    public Model(String id, List<Mesh> meshList){
+    public Model(String id, List<Material> materialList){
         this.id = id;
-        this.meshList = meshList;
         entitiesList = new ArrayList<>();
+        this.materialList = materialList;
     }
 
     public void cleanup(){
-        meshList.stream().forEach(Mesh::cleanup);
+        materialList.stream().forEach(Material::cleanup);
     }
 
     public List<Entity> getEntitiesList(){
@@ -26,7 +26,7 @@ public class Model {
         return id;
     }
 
-    public List<Mesh> getMeshList(){
-        return meshList;
+    public List<Material> getMaterialList(){
+        return materialList;
     }
 }

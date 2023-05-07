@@ -1,6 +1,6 @@
 package main.lwjglb.engine.scene;
 
-import main.lwjglb.engine.graph.Model;
+import main.lwjglb.engine.graph.*;
 import java.util.*;
 /**
  * Hold 3D scene values (models, lights, etc)
@@ -8,10 +8,12 @@ import java.util.*;
 public class Scene {
     private Map<String, Model> modelMap;
     private Projection projection;
+    private TextureCache textureCache;
 
     public Scene(int width, int height){
         modelMap = new HashMap<>();
         projection = new Projection(width, height);
+        textureCache = new TextureCache();
     }
     
     public void addEntity(Entity entity){
@@ -42,6 +44,10 @@ public class Scene {
 
     public Projection getProjection(){
         return projection;
+    }
+
+    public TextureCache getTextureCache(){
+        return textureCache;
     }
 
     public void resize(int width, int height){
