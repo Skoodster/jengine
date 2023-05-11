@@ -20,6 +20,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Window {
     private final long windowHandle;
     private int height;
+    private MouseInput mouseInput;
     private Callable<Void> resizeFunc;
     private int width;
 
@@ -92,6 +93,8 @@ public class Window {
         glfwGetFramebufferSize(windowHandle, arrWidth, arrHeight);
         width = arrWidth[0];
         height = arrHeight[0];
+
+        mouseInput = new MouseInput(windowHandle);
     }
 
     // Free the window callbacks and destroy the window
@@ -109,9 +112,15 @@ public class Window {
     public int getHeight(){
         return height;
     }
+
+    public MouseInput getMouseInput(){
+        return mouseInput;
+    }
+
     public int getWidth(){
         return width;
     }
+
     public long getWindowHandle(){
         return windowHandle;
     }
@@ -132,6 +141,7 @@ public class Window {
     public void pollEvents(){
         glfwPollEvents();
     }
+
     protected void resized(int width, int height){
         this.width = width;
         this.height = height;
@@ -142,12 +152,15 @@ public class Window {
             Logger.error("Error calling resize callback", excp);
         }
     }
+    
     public void update(){
         glfwSwapBuffers(windowHandle);
     }
+
     public boolean windowShouldClose(){
         return glfwWindowShouldClose(windowHandle);
     }
+    
     public static class WindowOptions{
         public boolean compatibleProfile;
         public int fps;

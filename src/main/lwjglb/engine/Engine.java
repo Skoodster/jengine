@@ -65,6 +65,7 @@ public class Engine {
             // If max elapsed time for render -> trigger render calls by calling render.render
             // If max elapsed time for update -> call appLogic.update
             if (targetFps <= 0 || deltaFps >= 1){
+                window.getMouseInput().input();
                 appLogic.input(window, scene, now - initialTime);
             }
             if (deltaUpdate >= 1){

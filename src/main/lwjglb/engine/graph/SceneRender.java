@@ -1,6 +1,5 @@
 package main.lwjglb.engine.graph;
 
-// import main.lwjglb.engine.Window;
 import main.lwjglb.engine.scene.*;
 
 import java.util.*;
@@ -31,6 +30,7 @@ public class SceneRender {
         uniformsMap = new UniformsMap(shaderProgram.getProgramId());
         uniformsMap.createUniform("projectionMatrix");
         uniformsMap.createUniform("modelMatrix");
+        uniformsMap.createUniform("viewMatrix");
         uniformsMap.createUniform("txtSampler");
     }
 
@@ -40,6 +40,7 @@ public class SceneRender {
         shaderProgram.bind();
 
         uniformsMap.setUniform("projectionMatrix", scene.getProjection().getProjMatrix());
+        uniformsMap.setUniform("viewMatrix", scene.getCamera().getViewMatrix());
         uniformsMap.setUniform("txtSampler", 0);
 
         Collection<Model> models = scene.getModelMap().values();
@@ -73,20 +74,3 @@ public class SceneRender {
 
     
 }
-/**
- * for (Model model : models){
-            model.getMeshList().stream().forEach(mesh -> {
-                glBindVertexArray(mesh.getVaoId());
-                List<Entity> entities = model.getEntitiesList();
-                for (Entity entity : entities){
-                    uniformsMap.setUniform("modelMatrix", entity.getModelMatrix());
-                    // Mode: Specifies primitives for rendering
-                    // Count: Specifies number of elements to be rendered
-                    // Type: Specifies type of value in indices data
-                    // Indices: Specifies offset to apply to the indices data to start rendering
-                    glDrawElements(GL_TRIANGLES, mesh.getNumVertices(), GL_UNSIGNED_INT, 0);
-                }
-                
-            });
-        }
- */

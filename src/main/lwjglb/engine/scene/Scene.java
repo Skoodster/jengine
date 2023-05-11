@@ -3,9 +3,10 @@ package main.lwjglb.engine.scene;
 import main.lwjglb.engine.graph.*;
 import java.util.*;
 /**
- * Hold 3D scene values (models, lights, etc)
+ * Hold 3D scene values (models, lights, camera, etc)
  */
 public class Scene {
+    private Camera camera;
     private Map<String, Model> modelMap;
     private Projection projection;
     private TextureCache textureCache;
@@ -14,6 +15,7 @@ public class Scene {
         modelMap = new HashMap<>();
         projection = new Projection(width, height);
         textureCache = new TextureCache();
+        camera = new Camera();
     }
     
     public void addEntity(Entity entity){
@@ -36,6 +38,10 @@ public class Scene {
 
     public void cleanup(){
         modelMap.values().stream().forEach(Model::cleanup);
+    }
+
+    public Camera getCamera(){
+        return camera;
     }
 
     public Map<String, Model> getModelMap(){
