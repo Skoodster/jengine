@@ -1,4 +1,4 @@
-# jgame
+# jengine
 3D Game Development using Java's LWJGL
 
 Currently a WIP and will most likely not work as intended if repo is cloned
