@@ -6,7 +6,6 @@ import main.lwjglb.engine.graph.*;
 import main.lwjglb.engine.scene.*;
 
 import java.lang.Math;
-import java.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 /**
@@ -22,7 +21,7 @@ public class Main implements IAppLogic{
 
     public static void main(String[] args){
         Main main = new Main();
-        Engine gameEng = new Engine("JGame", new Window.WindowOptions(), main);
+        Engine gameEng = new Engine("jEngine", new Window.WindowOptions(), main);
         gameEng.start();
     }
 
@@ -31,6 +30,18 @@ public class Main implements IAppLogic{
         //nothin
     }
 
+
+    // init() simplified. Now using a cube model which uses a wavefront format. No more model data embedded in code yippee!!
+    @Override
+    public void init(Window window, Scene scene, Render render){
+        Model cubeModel = ModelLoader.loadModel("cube-model", "resources/models/cube/cube.obj", scene.getTextureCache());
+        scene.addModel(cubeModel);
+
+        cubeEntity = new Entity("cube-entity", cubeModel.getId());
+        cubeEntity.setPosition(0, 0, -2);
+        scene.addEntity(cubeEntity);
+    }
+    /** Refined init() for loading more complex models
     @Override
     public void init(Window window, Scene scene, Render render){
         float[] positions = new float[]{
@@ -144,6 +155,7 @@ public class Main implements IAppLogic{
         cubeEntity.setPosition(0, 0, -2);
         scene.addEntity(cubeEntity);
     }
+    */
 
     @Override
     public void input(Window window, Scene scene, long diffTimeMillis){

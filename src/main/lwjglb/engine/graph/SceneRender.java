@@ -32,6 +32,7 @@ public class SceneRender {
         uniformsMap.createUniform("modelMatrix");
         uniformsMap.createUniform("viewMatrix");
         uniformsMap.createUniform("txtSampler");
+        uniformsMap.createUniform("material.diffuse");
     }
 
     // Doin the drawing to screen
@@ -49,6 +50,7 @@ public class SceneRender {
             List<Entity> entities = model.getEntitiesList();
 
             for (Material material : model.getMaterialList()){
+                uniformsMap.setUniform("material.diffuse", material.getDiffuseColor());
                 Texture texture = textureCache.getTexture(material.getTexturePath());
                 glActiveTexture(GL_TEXTURE0);
                 texture.bind();
